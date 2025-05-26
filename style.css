@@ -1,0 +1,526 @@
+/* ====== 全域設定 ====== */
+body, html {
+    overflow: visible;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(120deg, #18181b 0%, #27272a 100%);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ====== 側邊欄樣式 ====== */
+.sidebar {
+    width: 220px;
+    background: linear-gradient(180deg, #18181b 0%, #27272a 100%);
+    color: #fff;
+    padding: 30px 0 0 0;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar h2 {
+    margin-bottom: 32px;
+    font-size: 1.6em;
+    color: #fff;
+    font-weight: 700;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 90%;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 0.2em;
+}
+
+.sidebar ul li a {
+    color: #d1d5db;
+    text-decoration: none;
+    padding: 8px 18px;
+    font-size: 1em;
+    border-radius: 4px;
+    display: block;
+    text-align: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: #38bdf8;
+    color: #23232b;
+}
+
+.sidebar details {
+    width: 90%;
+    margin-bottom: 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.04);
+    /* 讓 details 不會超出 sidebar */
+    position: relative;
+}
+
+.sidebar summary {
+    padding: 10px 18px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #38bdf8;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition: background 0.2s;
+    /* 讓 summary 永遠在 details 頂部 */
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar details[open] ul {
+    /* 只針對展開的內容做捲動 */
+    max-height: 220px; /* 你可依需求調整高度 */
+    overflow-y: auto;
+    background: transparent;
+    margin: 0;
+    padding: 0 0 10px 0;
+    position: relative;
+    z-index: 0;
+}
+
+/* ====== 主要內容區 ====== */
+.content {
+    margin-left: 220px;
+    padding: 40px 0;
+    width: 100%;
+}
+
+/* ====== 標題 ====== */
+#class-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    margin: 1.5rem 0 2rem 0;
+    color: #38bdf8;
+    letter-spacing: 0.12em;
+    text-align: center;
+    white-space: nowrap;
+}
+body.day-mode #class-title {
+    color: #43a047;
+}
+
+#teacher-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    margin: 1.5rem 0 2rem 0;
+    color: #38bdf8;
+    letter-spacing: 0.12em;
+    text-align: center;
+    white-space: nowrap;
+}
+body.day-mode #teacher-title {
+    color: #43a047;
+}
+
+/* ====== 課表樣式 ====== */
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    background: #18181b;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #bfe6ff; /* 預設字體亮藍白 */
+}
+
+caption {
+    font-size: 2em;
+    margin-bottom: 18px;
+    color: #38bdf8;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 16px 0 8px 0;
+}
+
+table th, table td {
+    border: 1px solid #23232b;
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 1.1em;
+    transition: background 0.2s, color 0.2s;
+    color: #bfe6ff; /* 亮藍白字 */
+    max-width: 60px;         /* 新增：限制最大寬度 */
+    word-break: keep-all;    /* 新增：自動換行 */
+    white-space: normal !important;  /* 允許自動換行與 <br> */
+    line-height: 1.5;
+    vertical-align: top;
+}
+
+th {
+    background: linear-gradient(90deg, #18181b 0%, #23232b 100%);
+    color: #38bdf8;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(odd) {
+    background: #23232b;
+}
+
+tbody tr:nth-child(even) {
+    background: #18181b;
+}
+
+td:hover {
+    background: #a2f5d2 !important;
+    color: #18181b !important;
+    cursor: pointer;
+}
+
+td:first-child {
+    color: #38bdf8;
+    font-weight: bold;
+    background: #18181b !important; /* 保持背景一致 */
+    letter-spacing: 1px;
+    cursor: default;
+}
+
+td:first-child:hover {
+    background: inherit !important;
+    color: inherit !important;
+    cursor: default;
+}
+
+table td span.teacher-link,
+table td span.class-link {
+    display: inline-block;
+    margin-top: 2px;
+}
+
+/* ====== 時鐘樣式 ====== */
+#clock {
+    font-family: 'Share Tech', 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+    margin-bottom: 24px;
+    white-space: pre-line;
+    letter-spacing: 2px;
+}
+
+#clock .clock-time {
+    font-size: 4em;
+    font-weight: bold;
+    color: #ffffff;
+    display: block;
+    line-height: 0.8;
+}
+
+#clock .clock-date {
+    font-size: 1.5em;
+    color: #bfe6ff;
+    display: block;
+    margin-top: 0.2em;
+    letter-spacing: 1px;
+}
+
+/* ====== 主題切換按鈕樣式 ====== */
+#theme-toggle {
+    margin-top: auto;
+    margin-bottom: 90px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 10px;
+    padding: 0;
+    position: relative;
+}
+
+.switch-track {
+    width: 48px;
+    height: 24px;
+    background: #b0bec5;
+    border-radius: 12px;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.switch-thumb {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: 2px;
+    top: 1px;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.3s, background 0.3s;
+}
+
+.theme-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    background: url('data:image/svg+xml;utf8,<svg fill="orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><g stroke="orange" stroke-width="2"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>') center/contain no-repeat;
+    transition: background 0.3s;
+}
+
+/* 白天模式開關動畫與icon */
+body.day-mode .switch-track {
+    background: #a5d6a7;
+}
+body.day-mode .switch-thumb {
+    left: 24px;
+    background: #fff;
+}
+body.day-mode .theme-icon {
+    background: url('data:image/svg+xml;utf8,<svg fill="green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.37 5.51A7 7 0 1 0 18.49 14.63 9 9 0 1 1 9.37 5.51z"/></svg>') center/contain no-repeat;
+}
+
+/* ====== 淺色模式 ====== */
+body.day-mode {
+    background: linear-gradient(120deg, #f7fafc 0%, #e9ecef 100%);
+    color: #23232b;
+}
+
+body.day-mode .sidebar {
+    background: linear-gradient(180deg, #f7fafc 0%, #ececec 100%);
+    color: #23232b;
+    box-shadow: 2px 0 12px rgba(60, 60, 60, 0.08);
+}
+
+body.day-mode #clock {
+    color: #444;
+}
+
+body.day-mode #clock .clock-time {
+    color: #444;
+}
+
+body.day-mode #clock .clock-date {
+    color: #888;
+}
+
+body.day-mode #theme-toggle {
+    background: none;
+    color: #23232b;
+}
+
+body.day-mode #theme-toggle:hover {
+    background: #ececec;
+    color: #23232b;
+    border: 1px solid #b0bec5;
+}
+
+body.day-mode .sidebar summary {
+    color: #37474f;
+    background: none;
+}
+
+body.day-mode .sidebar details[open] summary {
+    background: #e0e0e0;
+    color: #37474f;
+}
+
+body.day-mode .sidebar ul li a {
+    color: #37474f;
+}
+
+body.day-mode .sidebar ul li a:hover,
+body.day-mode .sidebar ul li a.active {
+    background: #c8e6c9; /* 綠色 hover */
+    color: #23232b;
+}
+
+body.day-mode .content {
+    background: transparent;
+    color: #23232b;
+}
+
+body.day-mode table {
+    background: #fff;
+    color: #23232b;
+    box-shadow: 0 4px 24px rgba(60, 60, 60, 0.08);
+}
+
+body.day-mode caption {
+    color: #43a047; /* 綠色標題 */
+}
+
+body.day-mode th, 
+body.day-mode td {
+    color: #23232b;
+    border: 1px solid #e0e0e0;
+    background: none;
+}
+
+body.day-mode th {
+    background: linear-gradient(90deg, #e8f5e9 0%, #f5f7fa 100%);
+    color: #388e3c; /* 綠色表頭 */
+}
+
+body.day-mode tbody tr:nth-child(odd) {
+    background: #f5f7fa;
+}
+
+body.day-mode tbody tr:nth-child(even) {
+    background: #fff;
+}
+
+body.day-mode td:hover {
+    background: #a5d6a7 !important; /* 綠色 hover */
+    color: #23232b !important;
+}
+
+body.day-mode td:first-child {
+    color: #388e3c; /* 綠色節次 */
+    background: #f5f7fa !important;
+}
+
+body.day-mode td:first-child:hover {
+    background: inherit !important;
+    color: inherit !important;
+}
+
+/* ====== 響應式設計 ====== */
+@media (max-width: 1000px) {
+    .sidebar{
+        width: 130px;
+        height: 800px;
+    }
+    .content{
+        margin-left: 150px;
+        padding: 40px 0;
+        margin-left: 90px;
+        padding: 60px 50px;
+        width: 100%;
+        height: calc(100% - 800px);
+        width: calc(100% - 800px);
+    }
+    body.split-mode .split-row {
+        flex-direction: column !important;
+        width: 98vw;
+        height: auto;
+        margin: 1vw auto;
+    }
+    body.split-mode .split-col {
+        padding: 0 1vw;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    body.split-mode .split-mode-btn {
+        font-size: 0.95em;
+        padding: 0.3em 0.8em;
+        top: 8px;
+        right: 8px;
+        border-radius: 4px;
+        width: auto;
+        height: 36px;
+    }
+    table th, table td {
+        padding: 5px 3px;
+        font-size: 0.95em;
+        line-height: 1.2;
+    }
+}
+
+/* 右上角併排模式按鈕 */
+.split-mode-btn {
+    position: fixed;
+    top: 18px;
+    right: 32px;
+    z-index: 1001;
+    background: linear-gradient(90deg, #42a5f5 0%, #478ed1 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em 1.5em;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.12);
+    transition: background 0.2s, box-shadow 0.2s;
+    margin: 0.5em 0;
+}
+.split-mode-btn:hover {
+    background: linear-gradient(90deg, #478ed1 0%, #42a5f5 100%);
+    box-shadow: 0 4px 16px rgba(66,165,245,0.25);
+}
+
+/* 併排模式主要內容 */
+body.split-mode .sidebar {
+    display: none;
+}
+body.split-mode #sidebar {
+    display: none !important;
+}
+body.split-mode #main-content {
+    margin-left: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+}
+body.split-mode .split-row {
+    display: flex;
+    flex-direction: row;
+    width: 100;      /* 原本是 100vw，改成 96vw */
+    height: 200vh;     /* 可視需要調整高度 */
+    margin: 2vh auto; /* 讓表格有上下左右留白 */
+}
+body.split-mode .split-col {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 2vw;   /* 左右各留 2vw，讓內容不會貼邊 */
+    box-sizing: border-box;
+}
+body.split-mode .split-col > #class-title,
+body.split-mode .split-col > #teacher-title {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    padding: 24px 0 12px 0;
+    color: #38bdf8;
+    background: transparent;
+    letter-spacing: 0.12em;
+}
+body.day-mode.split-mode .split-col > #class-title,
+body.day-mode.split-mode .split-col > #teacher-title {
+    color: #43a047;
+}
+body.split-mode .split-col > #schedule-table,
+body.split-mode .split-col > #teacher-schedule-table {
+    flex: 1 1 0;
+    overflow: auto;
+}
+
+/* 高亮顯示班級 */
+.highlight-class {
+    background: #ffe082 !important;
+     color: #222 !important;
+}

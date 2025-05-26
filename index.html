@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>班級課表查詢</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <button id="split-mode-toggle" class="split-mode-btn">併排模式</button>
+
+    <nav class="sidebar" id="sidebar">
+      <div id="clock" class="clock"></div>
+      <!-- JS 產生的 details 會插入到這裡 -->
+
+      <ul>
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="about.html">關於</a></li>
+      </ul>
+
+      <button id="theme-toggle" aria-label="切換主題">
+        <span class="switch-track">
+          <span class="switch-thumb">
+            <span class="theme-icon"></span>
+          </span>
+        </span>
+      </button>
+  
+    </nav>
+
+    <main class="content" id="main-content">
+      <div id="class-title"></div>
+      <div id="teacher-title" style="display:none"></div>
+      <div id="schedule-table"></div>
+      <div id="teacher-schedule-table" style="display:none"></div>
+    </main>
+
+    <script src="main.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    @media (max-width: 1000px) {
+      .content {
+        padding: 10px 50px;
+        height: calc(100% - 800px);
+        width: calc(100% - 100px);
+      }
+    }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>關於</h2>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="about.html" class="active">關於</a></li>
+        </ul>
+    </div>
+    <div class="content" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div style="max-width: 500px; background: rgba(56,189,248,0.08); border-radius: 16px; box-shadow: 0 2px 12px rgba(56,189,248,0.08); padding: 40px 32px;">
+            <h1 id="class-title" style="margin-bottom: 1.2em;">資訊頁面</h1>
+            <table style="margin: 0 auto; width: 100%; max-width: 420px; border-spacing: 0 12px; table-layout: fixed;">
+                <colgroup>
+                    <col style="width: 40%;">
+                    <col style="width: 60%;">
+                </colgroup>
+                <tr>
+                    <th style="padding: 16px 20px; text-align:left; white-space: nowrap;">開發者</th>
+                    <td style="padding: 16px 20px; word-break: break-all;">高大崴 Okowa</td>
+                </tr>
+                <tr>
+                    <th style="padding: 16px 20px; text-align:left; white-space: nowrap;">最後編輯</th>
+                    <td style="padding: 16px 20px; word-break: break-all;">2025/5/23</td>
+                </tr>
+            </table>
+            <div style="text-align:center; margin-top:2.5em; color:#38bdf8; font-size:1.1em;">
+                感謝您的使用！
+            </div>
+            <div style="margin-top:2.5em; color:#38bdf8;">
+                <h2 style="color:#38bdf8; font-size:1.1em; margin-bottom:0.5em;">API 使用方法</h2>
+                <div style="font-size:0.98em; color:#b0bec5; text-align:left;">
+                    <b>查詢班級課表：</b><br>
+                    <code>GET /api?type=class&amp;name=1年1班&amp;day=1&amp;period=2</code><br>
+                    <b>查詢老師課表：</b><br>
+                    <code>GET /api?type=teacher&amp;name=王小明&amp;day=1&amp;period=2</code><br>
+                    <b>參數說明：</b><br>
+                    <ul style="margin:0 0 0 1.2em; color:#b0bec5;">
+                        <li><b>type</b>：class 或 teacher</li>
+                        <li><b>name</b>：班級名稱（如 1年1班）或老師姓名</li>
+                        <li><b>day</b>：星期（0=星期一，1=星期二...）</li>
+                        <li><b>period</b>：節次（0=第一節）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
